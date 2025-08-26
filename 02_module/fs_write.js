@@ -14,16 +14,3 @@ fs.writeFile(
     console.log("파일생성완료");
   }
 );
-
-fs.writeFile(
-  "./file_log.txt",
-  "\n안녕하세요2\n",
-  { encoding: "utf8", flag: "a" },
-  (err) => {
-    if (err) {
-      console.log("예외발생");
-      return;
-    }
-    console.log("파일생성완료");
-  }
-);
