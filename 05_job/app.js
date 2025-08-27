@@ -63,6 +63,17 @@ app.post("/mail", (req, resp) => {
 });
 
 // get 방식 "/excel_down" => customers 테이블의 데이터를 logs/customer2.xlsx로 저장.
+async function db_to_execel1() {
+  const workbook1 = xlsx.utils.book_new();
+  let resultSet1 = await sql.execute("select * from customers");
+
+  const firstSheet = xlsx.utils.json_to_sheet(resultSet1, {
+    hears: ["id", "name", "email", "phone", "address"],
+  });
+
+  xlsx.utils.book_append_sheet(workbook1, firstSheet, "Customers");
+  xlsx.writeFile(workbook1, "./logs/customers1.xlsx");
+}
 
 app.listen(3000, () => {
   console.log("http://localhost:3000");
