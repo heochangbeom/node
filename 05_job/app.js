@@ -68,7 +68,7 @@ async function db_to_execel1() {
   let resultSet1 = await sql.execute("select * from customers");
 
   const firstSheet = xlsx.utils.json_to_sheet(resultSet1, {
-    hears: ["id", "name", "email", "phone", "address"],
+    header: ["id", "name", "email", "phone", "address"],
   });
 
   xlsx.utils.book_append_sheet(workbook1, firstSheet, "Customers");

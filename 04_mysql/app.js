@@ -2,6 +2,9 @@
 const express = require("express");
 const parser = require("body-parser");
 const sql = require("./sql");
+const prodSql = require("./sql/sql"); // {productList:{query:``}, productDetail:{}}
+
+console.log(prodSql["productMainImages"].query);
 
 const app = express();
 app.use(parser.urlencoded()); // x-www-form-urlencoded
@@ -9,6 +12,19 @@ app.use(parser.json());
 
 app.get("/", (req, resp) => {
   resp.send("/ 실행");
+});
+
+//상품쿼리.
+app.post("/api/:alias", async (req, resp) => {
+  let search = prodSql[req.params.alias].query;
+  let param = req.body.param; // [{prouct_id:9, type:1, path:test.jpg}]
+  try {
+    let result = await sql.execute(search, param);
+    resp.json(result);
+  } catch (err) {
+    console.log(err);
+    resp.send({ reCode: "Error" });
+  }
 });
 
 // 고객목록.
@@ -21,8 +37,6 @@ app.get("/customers", async (req, resp) => {
     console.log(err);
     resp.send({ reCode: "Error" });
   }
-
-  //   connection = pool.getConnection();
 });
 
 // 등록.

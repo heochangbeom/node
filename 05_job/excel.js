@@ -6,8 +6,8 @@ const sql = require("./sql");
 async function db_to_execel() {
   const workbook = xlsx.utils.book_new(); //workbook생성.
   let resultSet = await sql.execute("select * from customers");
-  console.log(resultSet);
-  // 배열 => sheet : josn_to_sheet. workbook > sheet > cell
+  // console.log(resultSet);
+  // 배열 => sheet : json_to_sheet. workbook > sheet > cell
   const firstSheet = xlsx.utils.json_to_sheet(resultSet, {
     header: ["id", "name", "email", "phone", "address"],
   });
