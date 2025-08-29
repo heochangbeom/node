@@ -2,13 +2,16 @@
 const express = require("express");
 const parser = require("body-parser");
 const sql = require("./sql");
-const prodSql = require("./sql/sql"); // {productList:{query:``}, productDetail:{}}
+const prodSql = require("./sql/sql");
+const cors = require("cors");
+// {productList:{query:``}, productDetail:{}}
 
 console.log(prodSql["productMainImages"].query);
 
 const app = express();
 app.use(parser.urlencoded()); // x-www-form-urlencoded
 app.use(parser.json());
+app.use(cors());
 
 app.get("/", (req, resp) => {
   resp.send("/ 실행");
